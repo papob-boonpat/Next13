@@ -9,12 +9,7 @@ export async function GET(request: Request) {
   const todos: Todo[] = await res.json();
   const origin = request.headers.get("origin");
 
-  return new NextResponse(JSON.stringify(todos), {
-    headers: {
-      "Access-Control-Allow-Origin": origin || "*",
-      "Content-Type": "application/json",
-    },
-  });
+  return NextResponse.json(todos);
 }
 
 export async function POST(request: NextRequest) {

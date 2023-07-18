@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 const allowedOrigins =
   process.env.NODE_ENV === "production"
     ? ["https://www.yoursite.com", "https://yoursite.com"]
-    : ["http://localhost:3000"];
+    : ["http://localhost:3000", "https://www.google.com"];
 
 export function middleware(request: Request) {
   // const regex = new RegExp("/api/*");
@@ -26,7 +26,10 @@ export function middleware(request: Request) {
   console.log(request.url);
 
   console.log(origin);
-  return NextResponse.next();
+  const response = NextResponse.next();
+  response.headers.append("Access-Control-Allow-Origin", origin || "*");
+
+  return response;
 }
 
 export const config = {
